@@ -8,6 +8,13 @@ import Contacts from "./pages/contacts/Contacts.tsx";
 import Login from "./pages/login/Login";
 import { Medications } from "./pages/medications/Medications.tsx";
 import { Therapies } from "./pages/therapies/Therapies.tsx";
+//to add a new therapy
+import { MedicationDetails } from "./pages/medicationDetails/MedicationDetails.tsx";
+import { AddEditTherapie } from "./pages/addEditTherapie/AddEditTherapie.tsx";
+import { TherapieDetails } from "./pages/therapieDetails/TherapieDetails.tsx";
+import { DoctorDetails } from "./pages/doctorDetails/DoctorDetails.tsx";
+import { AddEditContact } from "./pages/addEditContact/AddEditContact.tsx";
+import { Profil } from "./pages/profil/Profil.tsx";
 
 const router = createBrowserRouter([
   {
@@ -24,15 +31,60 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/medications",
-        element: <Medications />,
+        children: [
+          {
+            path: "",
+            element: <Medications />,
+          },
+          {
+            path: "medicationdetails",
+            element: <MedicationDetails />,
+          },
+        ],
+      },
+      {
+        path: "profil",
+        element: <Profil />,
       },
       {
         path: "/contacts",
-        element: <Contacts />,
+
+        children: [
+          {
+            path: "",
+            element: <Contacts />,
+          },
+          {
+            path: "doctordetails",
+            element: <DoctorDetails />,
+          },
+          {
+            path: "addcontact",
+            element: <AddEditContact />,
+          },
+          {
+            path: "editcontact",
+            element: <AddEditContact />,
+          },
+        ],
       },
       {
         path: "/Therapies",
-        element: <Therapies />,
+
+        children: [
+          {
+            path: "",
+            element: <Therapies />,
+          },
+          {
+            path: "add", // Child route for adding a new therapy
+            element: <AddEditTherapie />,
+          },
+          {
+            path: "therapiedetails",
+            element: <TherapieDetails />,
+          },
+        ],
       },
     ],
   },
