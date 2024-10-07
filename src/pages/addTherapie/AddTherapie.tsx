@@ -1,6 +1,5 @@
 import "./AddTherapie.css";
 import {
-  // Button,
   Checkbox,
   FormControl,
   IconButton,
@@ -16,9 +15,9 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import SaveIcon from "@mui/icons-material/Save";
 import { useEffect, useState } from "react";
 import { IMedecines } from "../../models/Medecines";
+import { IContact } from "../../models/Contact"; // Newly created interface
 import { SelectChangeEvent } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-// import saveIcon from "../../assets/images/therapies/save.png";
 import LoadingButton from "@mui/lab/LoadingButton";
 
 const ITEM_HEIGHT = 48;
@@ -35,44 +34,56 @@ const MenuProps = {
 export function AddTherapie() {
   const [medecines, setMedecines] = useState<IMedecines[]>([]);
   const [selectedMedecines, setSelectedMedecines] = useState<string[]>([]);
+  const [contacts, setContacts] = useState<IContact[]>([]);
+  const [selectedContacts, setSelectedContacts] = useState<string[]>([]); // For doctors
   const [error, setError] = useState<string>("");
   const navigate = useNavigate();
-  //////////
   const [loading, setLoading] = useState(false);
-  function handleClick1() {
-    // for the save button
-    setLoading(true);
-  }
-  ////////////////////////////
 
+  // Handle back button click
   const handleClick = () => {
-    // for the Arrow back
     navigate("/therapies");
   };
 
-  // Fetch medicines from db.json using fetch
+  // Fetch medicines and contacts from db.json
   useEffect(() => {
-    fetch("http://localhost:3000/medicines") // Adjust the URL as needed
+    fetch("http://localhost:3000/medicines")
       .then((response) => {
-        if (!response.ok) {
-          throw new Error("Error fetching medicines");
-        }
+        if (!response.ok) throw new Error("Error fetching medicines");
         return response.json();
       })
-      .then((data) => {
-        setMedecines(data);
-      })
+      .then((data) => setMedecines(data))
       .catch((error) => {
         setError("Error fetching medicines");
         console.error(error);
       });
+
+    fetch("http://localhost:3000/contacts")
+      .then((response) => {
+        if (!response.ok) throw new Error("Error fetching contacts");
+        return response.json();
+      })
+      .then((data) => setContacts(data))
+      .catch((error) => {
+        setError("Error fetching contacts");
+        console.error(error);
+      });
   }, []);
 
-  const handleChange = (event: SelectChangeEvent<typeof selectedMedecines>) => {
+  // Handle change for multiple select of medicines
+  const handleMedicineChange = (event: SelectChangeEvent<typeof selectedMedecines>) => {
     const {
       target: { value },
     } = event;
     setSelectedMedecines(typeof value === "string" ? value.split(",") : value);
+  };
+
+  // Handle change for multiple select of contacts (doctors)
+  const handleContactChange = (event: SelectChangeEvent<typeof selectedContacts>) => {
+    const {
+      target: { value },
+    } = event;
+    setSelectedContacts(typeof value === "string" ? value.split(",") : value);
   };
 
   return (
@@ -94,43 +105,100 @@ export function AddTherapie() {
                 sx={{ width: "310px" }}
               />
             </div>
+
+            {/* Select Medications */}
             <div className="selectZone">
               <Typography sx={{ fontWeight: 700 }}>
-                Select one or more medecines
+                Select one or more medicines
               </Typography>
               <FormControl sx={{ m: 1, width: 310 }}>
-                <InputLabel id="medecines-multiple-checkbox-label">
-                  Medecines
-                </InputLabel>
+                <InputLabel id="medecines-multiple-checkbox-label">Medecines</InputLabel>
                 <Select
                   labelId="medecines-multiple-checkbox-label"
                   id="medecines-multiple-checkbox"
                   multiple
                   value={selectedMedecines}
-                  onChange={handleChange}
+                  onChange={handleMedicineChange}
                   input={<OutlinedInput label="Medecines" />}
                   renderValue={(selected) => selected.join(", ")}
                   MenuProps={MenuProps}
                 >
                   {medecines.map((medecine) => (
                     <MenuItem key={medecine.id} value={medecine.name}>
-                      {/* <Checkbox
-                        checked={selectedMedecines.includes(medecine.name)}
-                      /> */}
+                      <Checkbox checked={selectedMedecines.includes(medecine.name)} />
                       <ListItemText primary={medecine.name} />
                     </MenuItem>
                   ))}
                 </Select>
               </FormControl>
             </div>
+
+            {/* Add Another Medication */}
+            <div className="selectZone">
+              <Typography sx={{ fontWeight: 700 }}>Add another medication</Typography>
+              <FormControl sx={{ m: 1, width: 310 }}>
+                <InputLabel id="add-medicine-label">Medecines</InputLabel>
+                <Select
+                  labelId="add-medicine-label"
+                  multiple
+                  value={selectedMedecines}
+                  onChange={handleMedicineChange}
+                  input={<OutlinedInput label="Medecines" />}
+                  renderValue={(selected) => selected.join(", ")}
+                  MenuProps={MenuProps}
+                >
+                  {medecines.map((medecine) => (
+                    <MenuItem key={medecine.id} value={medecine.name}>
+                      <Checkbox checked={selectedMedecines.includes(medecine.name)} />
+                      <ListItemText primary={medecine.name} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+
+            {/* Select a Doctor */}
+            <div className="selectZone">
+              <Typography sx={{ fontWeight: 700 }}>Select a doctor</Typography>
+              <FormControl sx={{ m: 1, width: 310 }}>
+                <InputLabel id="contacts-multiple-checkbox-label">Doctors</InputLabel>
+                <Select
+                  labelId="contacts-multiple-checkbox-label"
+                  id="contacts-multiple-checkbox"
+                  multiple
+                  value={selectedContacts}
+                  onChange={handleContactChange}
+                  input={<OutlinedInput label="Doctors" />}
+                  renderValue={(selected) => selected.join(", ")}
+                  MenuProps={MenuProps}
+                >
+                  {contacts.map((contact) => (
+                    <MenuItem key={contact.id} value={contact.name}>
+                      <Checkbox checked={selectedContacts.includes(contact.name)} />
+                      <ListItemText primary={contact.name} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+
+            {/* Notes */}
+            <TextField
+              id="outlined-multiline-static"
+              label="Notes"
+              multiline
+              rows={4}
+              sx={{ width: "310px" }}
+            />
+
           </div>
           {error && <Typography color="error">{error}</Typography>}
           <div className="saveButton">
-            <div className="button">
+            <div className="buttn">
               <LoadingButton
                 size="small"
                 color="error"
-                onClick={handleClick1}
+                onClick={() => setLoading(true)}
                 loading={loading}
                 loadingPosition="center"
                 startIcon={<SaveIcon />}
@@ -151,4 +219,3 @@ export function AddTherapie() {
     </>
   );
 }
-///////////////////////////////////////////////////
