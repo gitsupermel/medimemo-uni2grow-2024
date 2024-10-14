@@ -25,44 +25,56 @@
       "address": ""
     }
   ],
+  "me": {
+    "id": "1",
+    "name": "admin",
+    "username": "admin",
+    "password": "admin",
+    "lastName": "",
+    "image": "",
+    "allergies": "",
+    "phone": "",
+    "email": "",
+    "address": ""
+  },
   "therapies": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Cunjunctivitis",
       "userId": 1,
       "contact": 2,
       "notes": "this is the notes"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Muscle pain",
       "userId": 1,
       "contact": 2,
       "notes": "this is the notes"
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "headache",
       "userId": 1,
       "contact": 2,
       "notes": "this is the notes"
     },
     {
-      "id": 4,
+      "id": "4",
       "name": "Foot pains",
       "userId": 1,
       "contact": 2,
       "notes": "this is the notes"
     },
     {
-      "id": 5,
+      "id": "5",
       "name": "Stomach pain",
       "userId": 1,
       "contact": 2,
       "notes": "this is the notes"
     },
     {
-      "id": 6,
+      "id": "6",
       "name": "Backs pains",
       "userId": 1,
       "contact": 2,
@@ -74,6 +86,54 @@
       "userId": 1,
       "contact": "Sarah Davis",
       "notes": "this is just a test to validate the save action"
+    },
+    {
+      "id": "08ba",
+      "name": "",
+      "userId": 1,
+      "notes": ""
+    },
+    {
+      "id": "cba2",
+      "name": "CONJUNCTIVIST",
+      "userId": 1,
+      "medicines": [
+        "Paracetamol"
+      ],
+      "contact": "Laura Thompson",
+      "notes": "another test for the save button"
+    },
+    {
+      "id": "0aad",
+      "name": "guest-therapy",
+      "userId": 1,
+      "medicines": [
+        "Arthrose"
+      ],
+      "contact": "John Smith",
+      "notes": "guest-notes"
+    },
+    {
+      "id": "2843",
+      "name": "guest-therapy22",
+      "userId": 1,
+      "medicines": [
+        "Metronidazol",
+        "Paracetamol"
+      ],
+      "contact": "Sarah Davis",
+      "notes": "guest's notes again"
+    },
+    {
+      "id": "cbc4",
+      "name": "testOne",
+      "userId": 1,
+      "medicines": [
+        "Arthrose",
+        "Paracetamol"
+      ],
+      "contact": "Laura Thompson",
+      "notes": "testOne notes for only test. \nlorem ipsum bla bla bla aaaaaaaaaaa\n....................."
     }
   ],
   "contacts": [

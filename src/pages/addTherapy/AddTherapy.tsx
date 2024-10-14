@@ -144,6 +144,7 @@ export function AddTherapy() {
       const newTherapy = {
         name: therapyName,
         userId: 1, // This could be the logged-in user
+        medicines: selectedMedecines, // Include selected medicines
         contact: selectedContacts[0], // Assuming the first selected doctor
         notes: notes,
       };
@@ -160,15 +161,22 @@ export function AddTherapy() {
         throw new Error("Failed to save therapy");
       }
 
-      // Redirect back to the therapies page
-      navigate("/therapies");
+      const savedTherapy = await response.json(); // Get the saved therapy
+
+      // Redirect to the TherapyDetails page with the saved therapy ID
+      navigate(`/therapies/${savedTherapy.id}`);
     } catch (error) {
       setError("Error saving therapy");
       console.error(error);
     } finally {
       setLoading(false);
     }
+    
   };
+
+  // for the button state
+  const isSaveDisabled =
+    therapyName.trim() === "" || selectedMedecines.length === 0;
 
   return (
     <>
@@ -397,7 +405,13 @@ export function AddTherapy() {
                   justifyContent: "center",
                   paddingTop: "25px",
                   borderRadius: "10px",
+                  color: isSaveDisabled ? "white" : undefined, // Keep the text color white
+                  "&.Mui-disabled": {
+                    backgroundColor: "#f44336", // Specific red shade for the disabled button
+                    color: "white", // Keep the text white
+                  },
                 }}
+                disabled={isSaveDisabled} // Disable Save button when conditions aren't met
               >
                 Save
               </LoadingButton>

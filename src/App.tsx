@@ -10,6 +10,7 @@ import { Therapies } from "./pages/therapies/Therapies.tsx";
 import Medication from "./pages/medications/Medication";
 import Dashboard from "./pages/Dashboard";
 import { AddTherapy } from "./pages/addTherapy/AddTherapy.tsx";
+import { TherapyDetails } from "./pages/therapyDetails/TherapyDetails.tsx"; // Import TherapyDetails
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
           {
             path: "addtherapy",
             element: <AddTherapy />, // Nested route for adding therapy
+          },
+          {
+            path: ":id", // Dynamic route for therapy details
+            element: <TherapyDetails />, // Render the TherapyDetails component
           },
         ],
       },

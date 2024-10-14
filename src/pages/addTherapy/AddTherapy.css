@@ -12,7 +12,7 @@
 }
 
 .bodyy {
-  width: (350px) px;
+  width: 100%;
   height: (690px) px;
   top: 50px;
   left: 20px;
@@ -68,25 +68,27 @@
 }
 
 .saveButton {
-  width: Fill (350px) px;
-  height: Fill (394px) px;
+  width: 100%;
+  /* height: Fill (394px) px; */
   gap: 10px;
   opacity: 0px;
   margin-top: 50px;
   padding-top: 20%;
+  
 
-  flex-direction: column;
+  /* flex-direction: column; */
   justify-content: center;
 }
 
 /* .button {
-  width: Fill (350px) px;
+  width: 100%;
   height: Hug (44px) px;
   padding: 10px 0px 10px 0px;
   gap: 10px;
   border-radius: var(--Radiusxs, 10px);
   opacity: 0.3px;
   background: var(--Primary, #ff0000);
+  flex: 1;
 } */
 
 .med {
@@ -101,9 +103,9 @@
 /*///////////////////////////*/
 
 .med .MuiIconButton-root {
-    position: absolute; /* Absolute positioning for IconButton */
-    top: 0px; /* Adjust to your preferred distance from the top */
-    right: 0px; /* Adjust to your preferred distance from the right */
-  }
+  position: absolute; /* Absolute positioning for IconButton */
+  top: 0px; /* Adjust to your preferred distance from the top */
+  right: 0px; /* Adjust to your preferred distance from the right */
+}
 
 /*///////////////////////////////////*/
